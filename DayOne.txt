@@ -1,0 +1,188 @@
+OpenMP in threads
+OpenMPI in process
+Threads is light weight in Process
+Accelerator is a core processor. It is used to speed up
+            	GPU is a  graphic for gaming
+                            	1000 cores at same time
+                            	10000 cores  at same time work parallelly
+                            	It is build for specific task
+            	GPGPU General  process Graphics processing unit
+            	FPGA Field Programmable Gate Array
+                            	Co-processor & we can do reprogram
+                            	Ex – bank, stock market
+                            	Used in HPC for scientific Calculation
+            	FPGA Architecture:-
+                            	ALM (Adaptive logic Module) we can erase this & reprogram
+                            	Programmable Routing Switch
+            	ASIC
+CPU have 1 core & made of 1 processor consumed lot of power & 32 cores it work sequentially
+CPU control everything So, it is more powerful
+SN – Symmetric Network
+Through vlsi, Verilog engineer made multi core processor
+ CPU 1 core is more powerful than GPU 1 core
+L1 cache Is faster than L2 as it is near to CPU
+It consume less power than others
+Weakness
+Less efficient as low performance/watt
+It have to transfer from l1 to l2 so it low performance
+Cache store some data as it is near to CPU if we need data repeatedly it will store data
+GPU Strengths:
+            	High Bandwidth main memory
+            	Significantly more compute resources
+            	Latency tolerant via parallelism
+            	High performance/watt
+Nvidia GPU Tesla V100:-
+            	Tensor Cores
+Paramutkarsh have huge number of cards SM so huge no of cores
+100 cards
+GPC  (Graphical processing cluster
+NV Link nvdia procperiting card NvCC to run cuda code
+ 
+Cuda code __global__
+GPU makes automative driving card
+TPU Tensor Processing Unit accelerator provided by google
+In two form :-
+            	Edge
+            	Cloud
+128x128 core cell
+TPU Architecture
+DPU Data Processing Unit
+ 
+Prgramming on Accelerators
+GPU
+            	CUDA it is in Nvidia
+            	OpenACC it is  Nvindia for open SourcE
+            	SYCL
+FPGA
+            	SYCL
+Ai/ML
+            	SYCl
+ 
+TPU (Tensor Processing Unit) accelearator is a specialized hardware component designed for accelerating machine learning (ML) workloads. TPUs are custom-designed. ASICs(Application-Specific Integrated Circuits) optimized for specific needs of ML algorithms. They offer several advantages for ML workloads like High Performance, Low Power Consumption and Cost Effectiveness.
+Google pixel 8 pro
+Edit the photo or edit the picture this is all generate by AI  this send data to TPU cloud
+ 
+Flow of Accelerated Programming:
+1.       Copy data from main memory to GPU memory
+2.       CPU instruct the processing to GPu
+3.        GPU executes parallel in each core
+4.        Copy the results from the GPU memory to the main memory
+ 
+CUDA:
+C  keyword __global__ this part code execute on GPu device parallel
+“<<<” indicated parallel
+GPU has to two part
+            	Host Code   
+            	Device code
+ 
+__global__ indicates a function
+Single source program
+SyCl in C language
+-------
+------	Host cpu
+Mian()
+Kernel
+   Device cpu
+ASIC example is google
+Nvidia for compiling cuda code nvcc compiler needed
+Nvidia’s compiler handles device function like kernel()
+Host compiler
+ 
+Cudamalloc for allocating dynamic  memory on GPU
+cudaMemcpy(Destination , source, bytes, cudaMemcpyHostToDevice);
+OpenACC:
+            	#pragma acc parallel
+OpenAcc, which stands fro Open Accelerators is a
+Clauses is on target
+--acc –target
+On target we have define architecture
+ 
+OpenMP:-
+To Gpu device
+#pragma omp target map(to:n,a,x[:n]) map(from:y[:n])
+A new directive to offload to accelerators
+ 
+OpenCL:
+Older version  of sycl
+OpenCL standard API is a KHRONOS implememntation
+Kernel function
+Ex
+Kernel void <variable name>
+#include<>
+Main()
+{
+--
+---
+}
+Kernel.cl file
+Mul()
+{
+---
+----
+}
+This part execute on co processor or accelerator
+ 
+SyCL
+It is based on C++
+Is is KHRONOS standard
+It extends C++ oin two ways:
+            	Device discovery
+            	Device control
+ 
+SyCL code run on Verilog or write in many language it is portable
+It allows you to write both host & device code with same file
+ 
+SyCL can be write
+Different Architecture
+GPU
+FPGA
+ASIC
+With different vendors
+Nvidia
+AMD
+For sycl code
+Buffer & get_access
+SyCL
+It is a single source high level standard C++ programming model
+It is more portable as we work in FPGA, ASIC & GPU
+
+Sycl two compiler mode
+Multi compiler mode:-
+Host & device compile both separate & then combine
+Single Compile mode 
+Host & device compile together
+Mostly used Single compilation
+
+SyCL provides high level abstraction layer for 
+	Platform/device selection
+	Buffer creation and Data movement
+	Kernel function compilation
+
+This implementation supports backend Cuda, OpenMP
+
+Kernel function on Device code
+
+SyCL is  a Open Source
+Intel bought codeeplay
+Adaptive Sycl known previously hipSyCL
+Paramutkarsh is based on Intel based on NVIDIA GPU
+
+paraDE for practical
+
+https://cloud.google.com/tpu/docs/intro-to-tpu
+
+For parallel we have to select Hybrid with C [HC]
+Project name save
+We have to click src  hello.cpp
+#include<iostream>
+Using namespace std;
+Int main()
+{
+cout<<”hello world”<<endl;
+return 0;
+}
+Compile is setting mark
+For switching compiler from setting switch compiler CPU c++
+For see output go myjobs
+In bin we can checkout hello.cpp.out
+After click run command
