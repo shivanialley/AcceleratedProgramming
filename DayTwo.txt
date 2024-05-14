@@ -1,0 +1,117 @@
+Two model one is implicit & explicit
+Kernel function run on a device
+
+Buffer:-
+	Allocate memory on host memory
+Buffer point to host memory 
+It is a class on Sycl
+We need accessor & kernel
+
+
+Accessor:-
+It associated of command group that will on kernel using handler
+Connection between accessor & device is a command group 
+
+Buffer Class
+Accessor Class
+	Access target is which type of device
+	Access mode we can access the data
+
+
+oneAPI
+	vim/scratch/parade/Laxmikant/set_path.sh
+	Source /scratch/parade/Laxmikant/binaries/oneAPI_basetoolkit_inst_dir/setvars.sh
+which icpx //path of executable
+
+vim sycl1.cpp
+#include<iostream>
+#include<sycl/sycl.hpp>
+using namespace sycl;
+int main()
+{
+	queue q(cpu_selector_v); //selecting cpu to connect
+	int *A = (int *)malloc_shared(sizeof(int)*N, q);
+	int *B = (int *)malloc_shared(sizeof(int)*N, q);
+	int *OUT = (int *)malloc_shared(sizeof(int)*N, q);
+
+	buffer<int ,1> buffA(A, range<1> (N));
+	buffer<int ,1> buffB(B, range<1> (N));
+	buffer<int ,1> buffOUT(OUT, range<1> (N));
+	
+	q.submit([&] handler(&cgh)
+	{
+		auto accA = buffA.get_access<access::mode::read> (cgh);
+		auto accB = buffB.get_access<access::mode::read> (cgh);
+		auto accOUT = buffOUT.get_access<access::mode::read_write> (cgh);
+});
+
+cgh.parallel_for(range<1>N,([=]id idx) //single_task
+{
+	accOUT[idx] = accA[idx] +accB[idx];
+});
+});
+return 0;
+}
+
+which icpx //check it is loaded or not
+icpx -fsycl sycl1.cpp - o sycl1_obj
+./sycl1_obj	//dont run directly use slurm for that
+Buffer
+
+Sycl::buffer
+
+Handler:-
+Single task
+Parallel task
+
+Every thing work on queue
+Gpu_selector_v for gpu
+Cpu_selector_v for cpu
+
+Command Groups -
+	Inside the Kernel function have command groups
+	Like q.submiy([&] (handler& h){
+		Command Group function
+}).wait();
+Means wait it above part should be finished then only after that next part will print
+These commands include-
+	Invoking kernel functions on a device
+	Copying data to and from the device
+	Waiting on other commands to complete
+
+Composing Command Group:-
+	The queue will not wait for commands to complete on destruction
+	Submit returns an event to allow you to synchronize with the
+
+
+
+Sycl Kernel Function:-
+	Q.submit([&] (handle& h)
+		{
+	h.single_task([=]() {
+/*kernel code*/
+});
+}).wait();
+[=] // call as pass by value
+[&] //call by reference
+
+Unified Shared Memory
+	We dont have to write extra line to move data
+Three type
+	Host - memory access by host
+	Device - memory access by device
+	Shared - memory access by host & device
+
+source /scratch/parade/Laxmikant/set_path.sh
+
+which icpx
+
+[c-huk43@login02 shivani_cbp]$ which icpx
+/scratch/parade/Laxmikant/binaries/oneAPI_basetoolkit_inst_dir/compiler/2023.1.0/linux/bin/icpx
+
+
+
+These three command for execution sycl
+export PATH=/scratch/parade/gccv12.2.0_inst_dir/bin/:$PATH
+export LD_LIBRARY_PATH=/scratch/parade/gccv12.2.0_inst_dir/lib64/:/scratch/parade/mpcv1.2.1_inst_dir/lib/:/scratch/parade/mpfrv4.1.0_inst_dir/lib:/scratch/parade/gmpv6.2.1_inst_dir/lib/:$LD_LIBRARY_PATH
+source /scratch/parade/Laxmikant/binaries/oneAPI_basetoolkit_inst_dir/setvars.sh
